@@ -1,0 +1,43 @@
+name: GitHub Pages
+on:
+  push:
+    # push for all branches
+    branches:
+      - '*'
+      
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ 3.8 ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Build HTML
+        run: |
+          pip${{ matrix.python-version }} install -r requirements.txt
+          python${{ matrix.python-version }} setup.py develop
+          cd docs
+          pip${{ matrix.python-version }} install -r requirements.txt
+          make html
+          touch _build/html/.nojekyll
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: html-docs
+          path: docs/_build/html/
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        # if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/html/

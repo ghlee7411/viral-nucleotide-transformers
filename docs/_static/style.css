@@ -1,0 +1,17 @@
+.wy-nav-content {
+    max-width: 90% !important;
+    min-height: fit-content;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    height: 100%;
+}
+
+.sphinxsidebarwrapper {  overflow-y: scroll; }
+
+.bd-main .bd-content .bd-article-container {
+    max-width: 60em;
+}
+
+.bd-page-width {
+    max-width: 95%;
+}
