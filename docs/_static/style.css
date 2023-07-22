@@ -15,3 +15,8 @@
 .bd-page-width {
     max-width: 95%;
 }
+
+:root {
+    --pst-color-primary: #007bff; 
+    --pst-color-success: #28a745;
+}
