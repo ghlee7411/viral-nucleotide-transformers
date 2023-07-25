@@ -12,23 +12,21 @@ def install_requires():
     return [
         'biopython>=1.79',
         'pandas',
-        'click'
+        'click',
+        'transformers',
+        'datasets',
+        'tokenizers'
     ]
 
 setup(
-    name = "coveragetools",
-    version = "0.0.1",
-    author = "InsilicoLab",
-    description = ("Fast matching and alignment algorithm tool for real-time PCR oligo verification"),
-    license = "For internal use only. Copyright © 2022. Seegene Inc., all rights reserved.",
+    name = "vinucmers",
+    version = "dev",
+    author = "lkarlo",
+    description = ("Viral Nucleotide Transformers"),
+    license = "MIT",
     packages=find_packages(include=[
-        'coveragetools', 
-        'coveragetools.utils', 
-        'coveragetools.alignment', 
-        'coveragetools.amplification',
-        'coveragetools.oligo',
-        'coveragetools.pipeline',
-        'coveragetools.report'
+        'vinucmers',
+        'vinucmers.*'
     ]),
     long_description=read('README.md'),
     install_requires=install_requires()
