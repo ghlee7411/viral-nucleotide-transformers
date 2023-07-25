@@ -1,5 +1,6 @@
 from vinucmers.pre_corpus import main as pre_corpus_main
 from vinucmers.bpe_tokenizer import train as bpe_tokenizer_train
+from vinucmers.unigram_tokenizer import train as unigram_tokenizer_train
 import click
 
 
@@ -48,11 +49,52 @@ def train_bpe_tokenizer(
         pad_token: str="<PAD>"
     ):
     """Command on bpe_tokenizer"""
-    bpe_tokenizer_train(pre_corpus_file, vocab_size, min_frequency, save_path, seed, unk_token, sep_token, mask_token, cls_token, pad_token)
+    bpe_tokenizer_train(
+        pre_corpus_file, vocab_size, min_frequency, save_path, 
+        seed, unk_token, sep_token, mask_token, cls_token, pad_token
+    )
+
+
+@click.group()
+def _train_unigram_tokenizer():
     pass
 
 
-cli = click.CommandCollection(sources=[_pre_corpus, _train_bpe_tokenizer])
+@_train_unigram_tokenizer.command()
+@click.option('--pre_corpus_file', '-f', type=str, required=True, help='Path to pre-corpus file')
+@click.option('--vocab_size', '-v', type=int, default=10000, help='Vocab size')
+@click.option('--shrink_factor', '-sf', type=float, default=0.75, help='Shrink factor')
+@click.option('--max_piece_length', '-m', type=int, default=16, help='Max piece length')
+@click.option('--n_sub_iterations', '-n', type=int, default=2, help='Number of sub iterations')
+@click.option('--save_path', '-s', type=str, default='unigram_tokenizer.json', help='Path to save unigram tokenizer')
+@click.option('--seed', type=int, default=42, help='Random seed')
+@click.option('--unk_token', '-u', type=str, default="<UNK>", help='UNK token')
+@click.option('--sep_token', '-e', type=str, default="<SEP>", help='SEP token')
+@click.option('--mask_token', '-k', type=str, default="<MASK>", help='MASK token')
+@click.option('--cls_token', '-c', type=str, default="<CLS>", help='CLS token')
+@click.option('--pad_token', '-p', type=str, default="<PAD>", help='PAD token')
+def train_unigram_tokenizer(
+        pre_corpus_file: str, 
+        vocab_size: int=10000, 
+        shrink_factor: float=0.75,
+        max_piece_length: int=16,
+        n_sub_iterations: int=2,
+        save_path: str='unigram_tokenizer.json',
+        seed: int=42,
+        unk_token: str="<UNK>",
+        sep_token: str="<SEP>",
+        mask_token: str="<MASK>",
+        cls_token: str="<CLS>",
+        pad_token: str="<PAD>"
+    ):
+    """Command on unigram_tokenizer"""
+    unigram_tokenizer_train(
+        pre_corpus_file, vocab_size, shrink_factor, max_piece_length, n_sub_iterations, 
+        save_path, seed, unk_token, sep_token, mask_token, cls_token, pad_token
+    )
+
+
+cli = click.CommandCollection(sources=[_pre_corpus, _train_bpe_tokenizer, _train_unigram_tokenizer])
 
 
 if __name__ == '__main__':
