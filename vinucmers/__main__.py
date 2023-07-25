@@ -17,7 +17,7 @@ def _pre_corpus():
 @click.option('--random_sample_size', '-r', type=int, default=100000, help='Size of random sample')
 @click.option('--seed', '-s', type=int, default=42, help='Random seed')
 def pre_corpus(file_path: str, split_size: int=10, overlap_size: int=5, random_sample_size: int=100000, seed: int=42):
-    """Command on pre-corpus to train nucleotide tokenizers"""
+    """ Download the raw sequence dataset(corpus) from Huggingface Dataset Hub and convert it to pre-corpus using window sliding technique."""
     pre_corpus_main(file_path, split_size, overlap_size, random_sample_size, seed)
 
 
@@ -49,7 +49,7 @@ def train_bpe_tokenizer(
         cls_token: str="<CLS>",
         pad_token: str="<PAD>"
     ):
-    """Command on bpe_tokenizer"""
+    """ Build a BPE tokenizer from pre-corpus using Huggingface Tokenizers. """
     bpe_tokenizer_train(
         pre_corpus_file, vocab_size, min_frequency, save_path, 
         seed, unk_token, sep_token, mask_token, cls_token, pad_token
@@ -88,7 +88,7 @@ def train_unigram_tokenizer(
         cls_token: str="<CLS>",
         pad_token: str="<PAD>"
     ):
-    """Command on unigram_tokenizer"""
+    """ Build a uni-gram tokenizer from pre-corpus using Huggingface Tokenizers. """
     unigram_tokenizer_train(
         pre_corpus_file, vocab_size, shrink_factor, max_piece_length, n_sub_iterations, 
         save_path, seed, unk_token, sep_token, mask_token, cls_token, pad_token
@@ -123,7 +123,7 @@ def train_wordpiece_tokenizer(
         cls_token: str="<CLS>",
         pad_token: str="<PAD>"
     ):
-    """Command on wordpiece_tokenizer"""
+    """ Build a wordpiece tokenizer from pre-corpus using Huggingface Tokenizers. """
     wordpiece_tokenizer_train(
         pre_corpus_file, vocab_size, min_frequency, save_path, 
         seed, unk_token, sep_token, mask_token, cls_token, pad_token
