@@ -1,7 +1,6 @@
 # Docstring for sphinx
 from vinucmers.utils import create_logger
 from vinucmers.dataset import get_raw_dataset
-import click
 import os
 
 
