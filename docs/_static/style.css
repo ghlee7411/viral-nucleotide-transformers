@@ -25,9 +25,9 @@ html[data-theme="light"] {
     /*****************************************************************************
     * main colors
     */
-    --pst-color-primary: rgb(39, 54, 227);
+    --pst-color-primary: rgb(41, 197, 116);
     --pst-color-secondary: rgb(205, 80, 98);
-    --pst-color-success: rgb(102, 211, 155);
+    --pst-color-success: rgb(187, 74, 74);
     --pst-color-info: var(--pst-color-primary);
     --pst-color-warning: var(--pst-color-secondary);
     --pst-color-danger: rgb(220, 53, 69);
@@ -84,9 +84,9 @@ html[data-theme="light"] {
     /*****************************************************************************
     * main colors
     */
-    --pst-color-primary: rgb(39, 54, 227);
+    --pst-color-primary: rgb(41, 197, 116);
     --pst-color-secondary: rgb(205, 80, 98);
-    --pst-color-success: rgb(102, 211, 155);
+    --pst-color-success: rgb(187, 74, 74);
     --pst-color-info: var(--pst-color-primary);
     --pst-color-warning: var(--pst-color-secondary);
     --pst-color-danger: rgb(203, 70, 83);
