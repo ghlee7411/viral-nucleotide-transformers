@@ -25,7 +25,7 @@ html[data-theme="light"] {
     /*****************************************************************************
     * main colors
     */
-    --pst-color-primary: rgb(41, 197, 116);
+    --pst-color-primary: rgb(0, 0, 0);
     --pst-color-secondary: rgb(205, 80, 98);
     --pst-color-success: rgb(187, 74, 74);
     --pst-color-info: var(--pst-color-primary);
@@ -64,7 +64,7 @@ html[data-theme="light"] {
     --pst-color-link-hover: var(--pst-color-secondary);
   
     /* // inline code */
-    --pst-color-inline-code: rgb(62, 232, 133);
+    --pst-color-inline-code: rgb(56, 183, 149);
   
     /* // targeted content */
     --pst-color-target: rgb(251, 229, 78);
@@ -84,7 +84,7 @@ html[data-theme="light"] {
     /*****************************************************************************
     * main colors
     */
-    --pst-color-primary: rgb(41, 197, 116);
+    --pst-color-primary: rgb(255, 255, 255);
     --pst-color-secondary: rgb(205, 80, 98);
     --pst-color-success: rgb(187, 74, 74);
     --pst-color-info: var(--pst-color-primary);
