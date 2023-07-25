@@ -1,5 +1,7 @@
 # Docstring for sphinx
 from vinucmers.utils import create_logger
+from vinucmers.dataset import get_raw_dataset
+import click
 
 
 def nucleotide_to_nuc_words(nucleotide: str, split_size: int=10, overlap_size: int=5):
@@ -47,3 +49,25 @@ def append_nuc_words_to_file(file_path: str, tokens: list):
         for token in tokens:
             f.write(token + '\n')
 
+
+def main(file_path: str, split_size: int=10, overlap_size: int=5):
+    """
+    Makes pre-corpus to train nucleotide tokenizers.
+
+    :param file_path: path to file
+    :param split_size: size of token
+    :param overlap_size: size of overlap
+    """
+    logger = create_logger(__name__)
+    logger.info('Making pre-corpus to train nucleotide tokenizers')
+    dataset = get_raw_dataset()
+    for i, data in enumerate(dataset):
+        nucleotide = data['sequence']
+        tokens = nucleotide_to_nuc_words(nucleotide, split_size, overlap_size)
+        append_nuc_words_to_file(file_path, tokens)
+        if i % 1000 == 0:
+            logger.info(f'{i}/{len(dataset)} sequences processed')
+
+
+if __name__ == '__main__':
+    main()

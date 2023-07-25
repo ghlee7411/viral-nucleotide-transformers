@@ -1,3 +1,4 @@
 # ignore ipython notebook checkpoints
 **.ipynb_checkpoints
 temp/
+__pycache__/
