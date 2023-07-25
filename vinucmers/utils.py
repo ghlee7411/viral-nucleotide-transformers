@@ -2,6 +2,15 @@ import logging
 
 
 def create_logger(logger_name: str, log_file: str = ''):
+    """ Creates logger.
+
+    Args:
+        logger_name: name of logger
+        log_file: path to log file
+
+    Returns:
+        logger
+    """
     parent_logger_name = logger_name.rsplit('.', 1)[0]
     if logger_name != parent_logger_name:
         parent_logger = logging.getLogger(parent_logger_name)
@@ -29,6 +38,14 @@ def create_logger(logger_name: str, log_file: str = ''):
 
 
 def set_formatter(handler):
+    """ Sets formatter.
+
+    Args:
+        handler: handler
+
+    Returns:
+        handler
+    """
     formatter = logging.Formatter('📃 [%(levelname)s] [%(name)s] [%(filename)s:%(lineno)d] [%(asctime)s] - %(message)s',
                                   datefmt='%Y-%m-%d %H:%M:%S')
     handler.setFormatter(formatter)

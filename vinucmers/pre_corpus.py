@@ -5,13 +5,15 @@ import click
 
 
 def nucleotide_to_nuc_words(nucleotide: str, split_size: int=10, overlap_size: int=5):
-    """
-    Converts nucleotide sequence to pre-words.
+    """ Converts nucleotide sequence to pre-words.
 
-    :param nucleotide: nucleotide sequence
-    :param split_size: size of token
-    :param overlap_size: size of overlap
-    :return: list of tokens
+    Args:
+        nucleotide: nucleotide sequence
+        split_size: size of token
+        overlap_size: size of overlap
+
+    Returns:
+        list of tokens
     """
     tokens = []
     for i in range(0, len(nucleotide), split_size - overlap_size):
@@ -22,13 +24,15 @@ def nucleotide_to_nuc_words(nucleotide: str, split_size: int=10, overlap_size: i
 
 
 def nuc_words_to_nucleotide(tokens: list, split_size: int=10, overlap_size: int=5):
-    """
-    Converts nucleotide pre-words to nucleotide sequence.
+    """ Converts pre-words to nucleotide sequence.
 
-    :param tokens: list of tokens
-    :param split_size: size of token
-    :param overlap_size: size of overlap
-    :return: nucleotide sequence
+    Args:
+        tokens: list of tokens
+        split_size: size of token
+        overlap_size: size of overlap
+
+    Returns:
+        nucleotide sequence
     """
     nucleotide = ''
     for i, token in enumerate(tokens):
@@ -39,11 +43,14 @@ def nuc_words_to_nucleotide(tokens: list, split_size: int=10, overlap_size: int=
 
 
 def append_nuc_words_to_file(file_path: str, tokens: list):
-    """
-    Appends tokens to file.
+    """ Appends tokens to file.
 
-    :param file_path: path to file
-    :param tokens: list of tokens
+    Args:
+        file_path: path to file
+        tokens: list of tokens
+
+    Returns:
+        None
     """
     with open(file_path, 'a') as f:
         for token in tokens:
@@ -51,12 +58,15 @@ def append_nuc_words_to_file(file_path: str, tokens: list):
 
 
 def main(file_path: str, split_size: int=10, overlap_size: int=5):
-    """
-    Makes pre-corpus to train nucleotide tokenizers.
+    """ Main function to run pre-corpus.
 
-    :param file_path: path to file
-    :param split_size: size of token
-    :param overlap_size: size of overlap
+    Args:
+        file_path: path to file
+        split_size: size of token
+        overlap_size: size of overlap
+
+    Returns:
+        None
     """
     logger = create_logger(__name__)
     logger.info('Making pre-corpus to train nucleotide tokenizers')
