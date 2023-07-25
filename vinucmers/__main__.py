@@ -1,6 +1,7 @@
 from vinucmers.pre_corpus import main as pre_corpus_main
 from vinucmers.bpe_tokenizer import train as bpe_tokenizer_train
 from vinucmers.unigram_tokenizer import train as unigram_tokenizer_train
+from vinucmers.wordpiece_tokenizer import train as wordpiece_tokenizer_train
 import click
 
 
@@ -94,7 +95,42 @@ def train_unigram_tokenizer(
     )
 
 
-cli = click.CommandCollection(sources=[_pre_corpus, _train_bpe_tokenizer, _train_unigram_tokenizer])
+@click.group()
+def _train_wordpiece_tokenizer():
+    pass
+
+
+@_train_wordpiece_tokenizer.command()
+@click.option('--pre_corpus_file', '-f', type=str, required=True, help='Path to pre-corpus file')
+@click.option('--vocab_size', '-v', type=int, default=10000, help='Vocab size')
+@click.option('--min_frequency', '-m', type=int, default=2, help='Min frequency')
+@click.option('--save_path', '-s', type=str, default='wordpiece_tokenizer.json', help='Path to save wordpiece tokenizer')
+@click.option('--seed', type=int, default=42, help='Random seed')
+@click.option('--unk_token', '-u', type=str, default="<UNK>", help='UNK token')
+@click.option('--sep_token', '-e', type=str, default="<SEP>", help='SEP token')
+@click.option('--mask_token', '-k', type=str, default="<MASK>", help='MASK token')
+@click.option('--cls_token', '-c', type=str, default="<CLS>", help='CLS token')
+@click.option('--pad_token', '-p', type=str, default="<PAD>", help='PAD token')
+def train_wordpiece_tokenizer(
+        pre_corpus_file: str, 
+        vocab_size: int=10000, 
+        min_frequency: int=2,
+        save_path: str='wordpiece_tokenizer.json',
+        seed: int=42,
+        unk_token: str="<UNK>",
+        sep_token: str="<SEP>",
+        mask_token: str="<MASK>",
+        cls_token: str="<CLS>",
+        pad_token: str="<PAD>"
+    ):
+    """Command on wordpiece_tokenizer"""
+    wordpiece_tokenizer_train(
+        pre_corpus_file, vocab_size, min_frequency, save_path, 
+        seed, unk_token, sep_token, mask_token, cls_token, pad_token
+    )
+
+
+cli = click.CommandCollection(sources=[_pre_corpus, _train_bpe_tokenizer, _train_unigram_tokenizer, _train_wordpiece_tokenizer])
 
 
 if __name__ == '__main__':
