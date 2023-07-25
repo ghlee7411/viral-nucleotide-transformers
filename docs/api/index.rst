@@ -10,6 +10,7 @@ API
    :template: custom-module-template.rst
    :recursive:
 
+   vinucmers
 
 Indices and tables
 =======================
