@@ -2,6 +2,7 @@
 from vinucmers.utils import create_logger
 from vinucmers.dataset import get_raw_dataset
 import click
+import os
 
 
 def nucleotide_to_nuc_words(nucleotide: str, split_size: int=10, overlap_size: int=5):
@@ -53,30 +54,52 @@ def append_nuc_words_to_file(file_path: str, tokens: list):
         None
     """
     with open(file_path, 'a') as f:
-        for token in tokens:
-            f.write(token + '\n')
+        split_nucleotide = ' '.join(tokens)
+        f.write(split_nucleotide + '\n')
 
 
-def main(file_path: str, split_size: int=10, overlap_size: int=5):
+def main(file_path: str, split_size: int=10, overlap_size: int=5, random_sample_size: int=100000, seed: int=42):
     """ Main function to run pre-corpus.
 
     Args:
-        file_path: path to file
-        split_size: size of token
-        overlap_size: size of overlap
+        file_path (str): path to file
+        split_size (int): size of token, default 10
+        overlap_size (int): size of overlap, default 5
+        random_sample_size (int): size of random sample, default 100000
+        seed (int): random seed, default 42
 
     Returns:
         None
     """
     logger = create_logger(__name__)
     logger.info('Making pre-corpus to train nucleotide tokenizers')
+
+    if os.path.exists(file_path):
+        logger.info(f'Pre-corpus already exists in {file_path}')
+        # remove file
+        os.remove(file_path)
+        logger.info(f'Pre-corpus removed from {file_path} successfully and will be recreated...')
+
     dataset = get_raw_dataset()
+
+    if random_sample_size > len(dataset):
+        dataset = dataset.shuffle(seed=seed)
+    
+    num_samples = min(random_sample_size, len(dataset))
+
     for i, data in enumerate(dataset):
-        nucleotide = data['sequence']
+        nucleotide = data['Sequence']
         tokens = nucleotide_to_nuc_words(nucleotide, split_size, overlap_size)
         append_nuc_words_to_file(file_path, tokens)
+        
         if i % 1000 == 0:
-            logger.info(f'{i}/{len(dataset)} sequences processed')
+            logger.info(f'{i}/{num_samples} sequences processed')
+
+        if i == num_samples:
+            logger.info(f'Pre-corpus created with {i} sequences randomly sampled from {len(dataset)} sequences')
+            break
+    
+    logger.info(f'Pre-corpus created successfully in {file_path} with size {i} sequences')
 
 
 if __name__ == '__main__':

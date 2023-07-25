@@ -46,7 +46,7 @@ def set_formatter(handler):
     Returns:
         handler
     """
-    formatter = logging.Formatter('📃 [%(levelname)s] [%(name)s] [%(filename)s:%(lineno)d] [%(asctime)s] - %(message)s',
+    formatter = logging.Formatter('[%(levelname)s] [%(name)s] [%(filename)s:%(lineno)d] [%(asctime)s] - %(message)s',
                                   datefmt='%Y-%m-%d %H:%M:%S')
     handler.setFormatter(formatter)
     return handler
