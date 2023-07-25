@@ -18,7 +18,7 @@ clean:
 
 prepare:
 	mkdir _autosummary
-	find ../vinuc_transformers -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec cp '{}' ./_autosummary/ \;    
+	find ../vinucmers -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec cp '{}' ./_autosummary/ \;    
 
 .PHONY: help Makefile
 

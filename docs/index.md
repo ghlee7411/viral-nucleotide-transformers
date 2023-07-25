@@ -25,7 +25,7 @@ markdown/index
 
 ## API
 
-The content of the `vinuc_transformers` API.
+The content of the `vinucmers` API.
 
 ```{toctree}
 :maxdepth: 2
