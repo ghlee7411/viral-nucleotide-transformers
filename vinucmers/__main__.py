@@ -2,6 +2,7 @@ from vinucmers.pre_corpus import main as pre_corpus_main
 from vinucmers.bpe_tokenizer import train as bpe_tokenizer_train
 from vinucmers.unigram_tokenizer import train as unigram_tokenizer_train
 from vinucmers.wordpiece_tokenizer import train as wordpiece_tokenizer_train
+from vinucmers.models.roberta import train as roberta_train
 import click
 
 
@@ -130,7 +131,26 @@ def train_wordpiece_tokenizer(
     )
 
 
-cli = click.CommandCollection(sources=[_pre_corpus, _train_bpe_tokenizer, _train_unigram_tokenizer, _train_wordpiece_tokenizer])
+@click.group()
+def _pretrain_roberta():
+    pass
+
+
+@_pretrain_roberta.command()
+@click.option('--pre_tokenizer_path', '-p', type=str, required=True, help='Path to pre-tokenizer')
+@click.option('--pretrained_save_path', '-s', type=str, required=True, help='Path to save pretrained model')
+@click.option('--seed', type=int, default=42, help='Random seed')
+def pretrain_roberta(
+        pre_tokenizer_path: str,
+        pretrained_save_path: str,
+        seed: int=42
+    ):
+    """ Pretrain RoBERTa model. """
+    roberta_train(pre_tokenizer_path, pretrained_save_path, seed)
+    pass
+
+
+cli = click.CommandCollection(sources=[_pre_corpus, _train_bpe_tokenizer, _train_unigram_tokenizer, _train_wordpiece_tokenizer, _pretrain_roberta])
 
 
 if __name__ == '__main__':
