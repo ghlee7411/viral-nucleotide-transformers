@@ -1,5 +1,5 @@
 from datasets import load_dataset
-from vinucmers.const import RAW_DATASET
+from vinucmer.const import RAW_DATASET
 
 
 def get_raw_dataset():

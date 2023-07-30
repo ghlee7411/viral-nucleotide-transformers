@@ -1,8 +1,9 @@
-from vinucmers.pre_corpus import main as pre_corpus_main
-from vinucmers.bpe_tokenizer import train as bpe_tokenizer_train
-from vinucmers.unigram_tokenizer import train as unigram_tokenizer_train
-from vinucmers.wordpiece_tokenizer import train as wordpiece_tokenizer_train
-from vinucmers.models.roberta import train as roberta_train
+from vinucmer.pre_corpus import main as pre_corpus_main
+from vinucmer.bpe_tokenizer import train as bpe_tokenizer_train
+from vinucmer.unigram_tokenizer import train as unigram_tokenizer_train
+from vinucmer.wordpiece_tokenizer import train as wordpiece_tokenizer_train
+from vinucmer.models.roberta import train as roberta_train
+from vinucmer.corpus_generator import main as corpus_main
 import click
 
 
@@ -18,7 +19,7 @@ def _pre_corpus():
 @click.option('--random_sample_size', '-r', type=int, default=100000, help='Size of random sample')
 @click.option('--seed', '-s', type=int, default=42, help='Random seed')
 def pre_corpus(file_path: str, split_size: int=10, overlap_size: int=5, random_sample_size: int=100000, seed: int=42):
-    """ Download the raw sequence dataset(corpus) from Huggingface Dataset Hub and convert it to pre-corpus using window sliding technique."""
+    """ Preprocess viral nucleotide sequence data for tokenization."""
     pre_corpus_main(file_path, split_size, overlap_size, random_sample_size, seed)
 
 
@@ -50,7 +51,7 @@ def train_bpe_tokenizer(
         cls_token: str="<CLS>",
         pad_token: str="<PAD>"
     ):
-    """ Build a BPE tokenizer from pre-corpus using Huggingface Tokenizers. """
+    """ Build a BPE tokenizer from the <pre-corpus> using Huggingface Tokenizers. """
     bpe_tokenizer_train(
         pre_corpus_file, vocab_size, min_frequency, save_path, 
         seed, unk_token, sep_token, mask_token, cls_token, pad_token
@@ -89,7 +90,7 @@ def train_unigram_tokenizer(
         cls_token: str="<CLS>",
         pad_token: str="<PAD>"
     ):
-    """ Build a uni-gram tokenizer from pre-corpus using Huggingface Tokenizers. """
+    """ Build a uni-gram tokenizer from the <pre-corpus> using Huggingface Tokenizers. """
     unigram_tokenizer_train(
         pre_corpus_file, vocab_size, shrink_factor, max_piece_length, n_sub_iterations, 
         save_path, seed, unk_token, sep_token, mask_token, cls_token, pad_token
@@ -124,7 +125,7 @@ def train_wordpiece_tokenizer(
         cls_token: str="<CLS>",
         pad_token: str="<PAD>"
     ):
-    """ Build a wordpiece tokenizer from pre-corpus using Huggingface Tokenizers. """
+    """ Build a wordpiece tokenizer from the <pre-corpus> using Huggingface Tokenizers. """
     wordpiece_tokenizer_train(
         pre_corpus_file, vocab_size, min_frequency, save_path, 
         seed, unk_token, sep_token, mask_token, cls_token, pad_token
@@ -150,7 +151,37 @@ def pretrain_roberta(
     pass
 
 
-cli = click.CommandCollection(sources=[_pre_corpus, _train_bpe_tokenizer, _train_unigram_tokenizer, _train_wordpiece_tokenizer, _pretrain_roberta])
+@click.group()
+def _corpus_generator():
+    pass
+
+
+@_corpus_generator.command()
+@click.option('--save_dir', '-s', type=str, required=True, help='Path to save directory')
+@click.option('--splitter', '-sp', type=str, default=None, help='Splitter')
+@click.option('--min_bp', '-min', type=int, default=30, help='Min bp')
+@click.option('--max_bp', '-max', type=int, default=2000, help='Max bp')
+@click.option('--min_samples', '-min_s', type=int, default=5, help='Min samples')
+@click.option('--sampling_rate', '-sr', type=float, default=0.2, help='Sampling rate')
+@click.option('--seed', type=int, default=42, help='Random seed')
+@click.option('--num_sample_raw', '-n', type=int, default=None, help='Number of raw samples')
+def corpus_generator(save_dir: str, splitter: str = None, min_bp: int = 30, max_bp: int = 2000, min_samples: int = 5, sampling_rate: float = 0.2, seed: int = 42, num_sample_raw: int = None):
+    """ Generate corpus for nucleotide transformer pre-training."""
+    corpus_main(
+        save_dir, splitter, min_bp, max_bp, min_samples, sampling_rate, seed, num_sample_raw
+    )
+
+
+cli = click.CommandCollection(
+    sources=[
+        _pre_corpus, 
+        _corpus_generator,
+        _train_bpe_tokenizer, 
+        _train_unigram_tokenizer, 
+        _train_wordpiece_tokenizer, 
+        _pretrain_roberta
+    ]
+)
 
 
 if __name__ == '__main__':

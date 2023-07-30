@@ -1,4 +1,4 @@
-from vinucmers.utils import create_logger
+from vinucmer.utils import create_logger
 from tokenizers.trainers import WordPieceTrainer
 from tokenizers.pre_tokenizers import Whitespace
 from tokenizers import models

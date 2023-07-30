@@ -7,7 +7,7 @@ myst:
 html_theme.sidebar_secondary.remove: true
 ---
 
-# Viral Nucleotide Transformers
+# Viral Nucleotide Transformer
 
 ```{seealso}
 Huggingface Transformers: https://huggingface.co/transformers/
@@ -25,7 +25,7 @@ markdown/index
 
 ## API
 
-The content of the `vinucmers` API.
+The content of the `vinucmer` API.
 
 ```{toctree}
 :maxdepth: 2

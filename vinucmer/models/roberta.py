@@ -4,8 +4,9 @@ from tokenizers import models
 from transformers import RobertaConfig, PreTrainedTokenizerFast, RobertaForMaskedLM
 from transformers import DataCollatorForLanguageModeling, Trainer, TrainingArguments
 from transformers import AutoTokenizer
-from vinucmers.utils import create_logger, sample_substring
-from vinucmers.dataset import get_raw_dataset
+from transformers import AutoModelForMaskedLM
+from vinucmer.utils import create_logger, sample_substring
+from vinucmer.dataset import get_raw_dataset
 import os
 
 
@@ -76,5 +77,26 @@ def train(
     data_collator = DataCollatorForLanguageModeling(
         tokenizer=tokenizer, mlm=True, mlm_probability=MLM_PROBABILITY
     )
+
+    model = AutoModelForMaskedLM.from_pretrained("distilroberta-base")
+    training_args = TrainingArguments(
+        output_dir=pretrained_save_path,
+        evaluation_strategy="epoch",
+        learning_rate=2e-5,
+        num_train_epochs=3,
+        weight_decay=0.01,
+        push_to_hub=False,
+        report_to="none"
+    )
+
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=dataset["train"],
+        eval_dataset=dataset["test"],
+        data_collator=data_collator,
+    )
+
+    trainer.train()
 
     return

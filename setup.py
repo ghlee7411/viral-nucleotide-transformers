@@ -19,14 +19,14 @@ def install_requires():
     ]
 
 setup(
-    name = "vinucmers",
+    name = "vinucmer",
     version = "dev",
     author = "lkarlo",
-    description = ("Viral Nucleotide Transformers"),
+    description = ("Viral Nucleotide Transformer"),
     license = "MIT",
     packages=find_packages(include=[
-        'vinucmers',
-        'vinucmers.*'
+        'vinucmer',
+        'vinucmer.*'
     ]),
     long_description=read('README.md'),
     install_requires=install_requires()
