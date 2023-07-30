@@ -7,7 +7,7 @@ myst:
 html_theme.sidebar_secondary.remove: true
 ---
 
-# Viral Nucleotide Transformer
+# Viral Nucleotide Transformers
 
 ```{seealso}
 Huggingface Transformers: https://huggingface.co/transformers/

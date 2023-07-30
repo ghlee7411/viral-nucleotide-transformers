@@ -22,7 +22,7 @@ setup(
     name = "vinucmer",
     version = "dev",
     author = "lkarlo",
-    description = ("Viral Nucleotide Transformer"),
+    description = ("Viral Nucleotide Transformers"),
     license = "MIT",
     packages=find_packages(include=[
         'vinucmer',
