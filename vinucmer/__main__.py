@@ -162,13 +162,13 @@ def _corpus_generator():
 @click.option('--min_bp', '-min', type=int, default=30, help='Min bp')
 @click.option('--max_bp', '-max', type=int, default=2000, help='Max bp')
 @click.option('--min_samples', '-min_s', type=int, default=5, help='Min samples')
-@click.option('--sampling_rate', '-sr', type=float, default=0.2, help='Sampling rate')
+@click.option('--max_samples', '-max_s', type=int, default=1000, help='Max samples')
 @click.option('--seed', type=int, default=42, help='Random seed')
 @click.option('--num_sample_raw', '-n', type=int, default=None, help='Number of raw samples')
-def corpus_generator(save_dir: str, splitter: str = None, min_bp: int = 30, max_bp: int = 2000, min_samples: int = 5, sampling_rate: float = 0.2, seed: int = 42, num_sample_raw: int = None):
+def corpus_generator(save_dir: str, splitter: str = None, min_bp: int = 30, max_bp: int = 2000, min_samples: int = 5, max_samples: int = 1000, seed: int = 42, num_sample_raw: int = None):
     """ Generate corpus for nucleotide transformer pre-training."""
     corpus_main(
-        save_dir, splitter, min_bp, max_bp, min_samples, sampling_rate, seed, num_sample_raw
+        save_dir, splitter, min_bp, max_bp, min_samples, max_samples, seed, num_sample_raw
     )
 
 
