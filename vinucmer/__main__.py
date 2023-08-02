@@ -139,15 +139,17 @@ def _pretrain_roberta():
 
 @_pretrain_roberta.command()
 @click.option('--pre_tokenizer_path', '-p', type=str, required=True, help='Path to pre-tokenizer')
+@click.option('--corpus_dir', '-c', type=str, required=True, help='Path to corpus directory')
 @click.option('--pretrained_save_path', '-s', type=str, required=True, help='Path to save pretrained model')
 @click.option('--seed', type=int, default=42, help='Random seed')
 def pretrain_roberta(
         pre_tokenizer_path: str,
+        corpus_dir: str,
         pretrained_save_path: str,
         seed: int=42
     ):
     """ Pretrain RoBERTa model. """
-    roberta_train(pre_tokenizer_path, pretrained_save_path, seed)
+    roberta_train(pre_tokenizer_path, corpus_dir, pretrained_save_path, seed)
     pass
 
 

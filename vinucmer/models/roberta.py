@@ -5,6 +5,7 @@ from transformers import RobertaConfig, PreTrainedTokenizerFast, RobertaForMaske
 from transformers import DataCollatorForLanguageModeling, Trainer, TrainingArguments
 from transformers import AutoTokenizer
 from transformers import AutoModelForMaskedLM
+from datasets import load_dataset
 from vinucmer.utils import create_logger, sample_substring
 from vinucmer.dataset import get_raw_dataset
 import os
@@ -12,6 +13,7 @@ import os
 
 def train(
         pre_tokenizer_path: str,
+        corpus_dir: str,
         pretrained_save_path: str,
         seed: int=42
     ):
@@ -64,8 +66,9 @@ def train(
     # def sample_subsequence(examples):
     #     sub_seqs = [sample_substring(s, MIN_SUB_SEQ_LENGTH, MAX_SUB_SEQ_LENGTH) for s in examples['Sequence']]
     #     return tokenizer(sub_seqs, padding='max_length', truncation=True)
+
+    dataset = load_dataset('text', data_dir=corpus_dir)
     
-    dataset = get_raw_dataset()
     # dataset.map(sample_subsequence, batched=True, num_proc=NUM_PROCESS)
     dataset = dataset.train_test_split(test_size=TRAIN_TEST_SPLIT, seed=seed, shuffle=True)
 
