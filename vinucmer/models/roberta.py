@@ -56,21 +56,25 @@ def train(
     tokenizer = AutoTokenizer.from_pretrained(pretrained_save_path, model_max_length=MAX_LENGTH)
     tokenizer.save_pretrained(pretrained_save_path)
 
-
     # Load dataset
     logger.info('Loading dataset..')
 
-    # def _encoder(examples):
-    #     return tokenizer(examples['Sequence'], padding='max_length', truncation=True)
+    def sample_subsequence(examples):
+        sub_seqs = list()
+        for s in examples['text']:
+            subs = sample_substring(s, MIN_SUB_SEQ_LENGTH, MAX_SUB_SEQ_LENGTH)
+            if subs:
+                sub_seqs.append(subs)
 
-    # def sample_subsequence(examples):
-    #     sub_seqs = [sample_substring(s, MIN_SUB_SEQ_LENGTH, MAX_SUB_SEQ_LENGTH) for s in examples['Sequence']]
-    #     return tokenizer(sub_seqs, padding='max_length', truncation=True)
+        return tokenizer(sub_seqs, padding='max_length', truncation=True)
 
-    dataset = load_dataset('text', data_dir=corpus_dir)
+    dataset = load_dataset('text', data_dir=corpus_dir, split='train')
     
-    # dataset.map(sample_subsequence, batched=True, num_proc=NUM_PROCESS)
+    dataset = dataset.map(sample_subsequence, batched=True, num_proc=NUM_PROCESS)
     dataset = dataset.train_test_split(test_size=TRAIN_TEST_SPLIT, seed=seed, shuffle=True)
+
+    print(dataset)
+    print(dataset['train'][0])
 
     # Setup config for Roberta
     config = RobertaConfig(vocab_size=len(tokenizer))

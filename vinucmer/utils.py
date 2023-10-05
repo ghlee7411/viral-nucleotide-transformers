@@ -78,13 +78,20 @@ def sample_substring(data, min_length, max_length, seed=42):
         >>> sampled_substring = sample_substring(long_string, 5, 15)
         >>> print("Sampled substring:", sampled_substring)
     """
+    logger = create_logger(__name__)
+
     if min_length > max_length:
-        raise ValueError("The min_length should be less than or equal to the max_length.")
-    
+        logger.error("The min_length should be less than or equal to the max_length.")
+        return None
+        
+    if len(data) < min_length:
+        logger.warn(f"The length of the original string data is less than the min_length: {len(data)}")
+        return data
+
     max_length = min(max_length, len(data))
     random.seed(seed)
     length = random.randint(min_length, max_length)
-    start = random.randint(0, len(data) - length)
+    start = random.randint(0, max(0, len(data) - length))
     end = start + length
 
     return data[start:end]
