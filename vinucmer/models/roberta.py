@@ -93,7 +93,8 @@ def train(
         num_train_epochs=3,
         weight_decay=0.01,
         push_to_hub=False,
-        report_to="none"
+        report_to="none",
+        use_mps_device=True # Apple M1 GPU
     )
 
     trainer = Trainer(
