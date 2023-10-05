@@ -11,8 +11,8 @@ sys.path.insert(0, os.path.abspath(".."))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'viral-nucleotide-transformers'
-copyright = '2023, lkarlo'
-author = 'lkarlo'
+copyright = '2023, karlo.lee'
+author = 'karlo.lee'
 release = "dev"
 
 

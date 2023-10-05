@@ -21,7 +21,7 @@ def install_requires():
 setup(
     name = "vinucmer",
     version = "dev",
-    author = "lkarlo",
+    author = "karlo.lee",
     description = ("Viral Nucleotide Transformers"),
     license = "MIT",
     packages=find_packages(include=[
