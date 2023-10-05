@@ -1,0 +1,6 @@
+get\_raw\_dataset
+=================
+
+.. currentmodule:: vinucmer.dataset
+
+.. autoclass:: get_raw_dataset

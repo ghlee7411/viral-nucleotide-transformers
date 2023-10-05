@@ -1,0 +1,6 @@
+set\_formatter
+==============
+
+.. currentmodule:: vinucmer.utils
+
+.. autoclass:: set_formatter

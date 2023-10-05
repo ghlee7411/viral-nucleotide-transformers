@@ -1,0 +1,6 @@
+main
+====
+
+.. currentmodule:: vinucmer.corpus_generator
+
+.. autoclass:: main

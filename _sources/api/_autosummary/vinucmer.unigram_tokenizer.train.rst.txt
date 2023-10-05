@@ -1,0 +1,6 @@
+train
+=====
+
+.. currentmodule:: vinucmer.unigram_tokenizer
+
+.. autoclass:: train

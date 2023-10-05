@@ -1,0 +1,33 @@
+unigram\_tokenizer
+==================
+
+.. automodule:: vinucmer.unigram_tokenizer
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :template: custom-function-template.rst
+      :nosignatures:
+   
+      train
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

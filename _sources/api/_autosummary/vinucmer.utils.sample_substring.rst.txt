@@ -1,0 +1,6 @@
+sample\_substring
+=================
+
+.. currentmodule:: vinucmer.utils
+
+.. autoclass:: sample_substring

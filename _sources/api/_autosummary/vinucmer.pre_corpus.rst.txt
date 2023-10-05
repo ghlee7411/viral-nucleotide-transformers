@@ -1,0 +1,36 @@
+pre\_corpus
+===========
+
+.. automodule:: vinucmer.pre_corpus
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :template: custom-function-template.rst
+      :nosignatures:
+   
+      append_nuc_words_to_file
+      main
+      nuc_words_to_nucleotide
+      nucleotide_to_nuc_words
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

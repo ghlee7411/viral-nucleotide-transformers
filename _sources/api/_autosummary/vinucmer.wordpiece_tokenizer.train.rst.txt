@@ -1,0 +1,6 @@
+train
+=====
+
+.. currentmodule:: vinucmer.wordpiece_tokenizer
+
+.. autoclass:: train

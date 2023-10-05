@@ -1,0 +1,33 @@
+dataset
+=======
+
+.. automodule:: vinucmer.dataset
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :template: custom-function-template.rst
+      :nosignatures:
+   
+      get_raw_dataset
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

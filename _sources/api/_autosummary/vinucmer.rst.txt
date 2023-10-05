@@ -1,0 +1,39 @@
+﻿vinucmer
+========
+
+.. automodule:: vinucmer
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. autosummary::
+      :toctree:
+      :template: custom-module-template.rst
+      :recursive:
+   
+      vinucmer.bpe_tokenizer
+      vinucmer.const
+      vinucmer.corpus_generator
+      vinucmer.dataset
+      vinucmer.models
+      vinucmer.pre_corpus
+      vinucmer.unigram_tokenizer
+      vinucmer.utils
+      vinucmer.wordpiece_tokenizer
+   
+   

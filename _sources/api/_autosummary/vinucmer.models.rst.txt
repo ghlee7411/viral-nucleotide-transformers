@@ -1,0 +1,31 @@
+models
+======
+
+.. automodule:: vinucmer.models
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. autosummary::
+      :toctree:
+      :template: custom-module-template.rst
+      :recursive:
+   
+      vinucmer.models.roberta
+   
+   

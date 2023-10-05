@@ -1,0 +1,24 @@
+const
+=====
+
+.. automodule:: vinucmer.const
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

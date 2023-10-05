@@ -1,0 +1,6 @@
+append\_nuc\_words\_to\_file
+============================
+
+.. currentmodule:: vinucmer.pre_corpus
+
+.. autoclass:: append_nuc_words_to_file

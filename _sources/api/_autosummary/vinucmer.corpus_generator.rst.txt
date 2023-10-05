@@ -1,0 +1,35 @@
+corpus\_generator
+=================
+
+.. automodule:: vinucmer.corpus_generator
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :template: custom-function-template.rst
+      :nosignatures:
+   
+      get_subsequences
+      main
+      sample_subsequence
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

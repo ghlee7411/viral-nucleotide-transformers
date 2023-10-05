@@ -1,0 +1,6 @@
+sample\_subsequence
+===================
+
+.. currentmodule:: vinucmer.corpus_generator
+
+.. autoclass:: sample_subsequence

@@ -1,0 +1,6 @@
+nuc\_words\_to\_nucleotide
+==========================
+
+.. currentmodule:: vinucmer.pre_corpus
+
+.. autoclass:: nuc_words_to_nucleotide

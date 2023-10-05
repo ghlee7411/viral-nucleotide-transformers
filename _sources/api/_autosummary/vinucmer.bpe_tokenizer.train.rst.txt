@@ -1,0 +1,6 @@
+train
+=====
+
+.. currentmodule:: vinucmer.bpe_tokenizer
+
+.. autoclass:: train

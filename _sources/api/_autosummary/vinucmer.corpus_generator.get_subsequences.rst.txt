@@ -1,0 +1,6 @@
+get\_subsequences
+=================
+
+.. currentmodule:: vinucmer.corpus_generator
+
+.. autoclass:: get_subsequences
