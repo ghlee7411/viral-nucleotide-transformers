@@ -410,7 +410,8 @@ document.write(`
         <span class="n">num_train_epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
         <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
         <span class="n">push_to_hub</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">report_to</span><span class="o">=</span><span class="s2">&quot;none&quot;</span>
+        <span class="n">report_to</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">use_mps_device</span><span class="o">=</span><span class="kc">True</span> <span class="c1"># Apple M1 GPU</span>
     <span class="p">)</span>
 
     <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
