@@ -395,13 +395,20 @@ document.write(`
 <span class="sd">        &gt;&gt;&gt; sampled_substring = sample_substring(long_string, 5, 15)</span>
 <span class="sd">        &gt;&gt;&gt; print(&quot;Sampled substring:&quot;, sampled_substring)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">create_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">min_length</span> <span class="o">&gt;</span> <span class="n">max_length</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The min_length should be less than or equal to the max_length.&quot;</span><span class="p">)</span>
-    
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The min_length should be less than or equal to the max_length.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+        
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">min_length</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The length of the original string data is less than the min_length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span>
+
     <span class="n">max_length</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">max_length</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
     <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">min_length</span><span class="p">,</span> <span class="n">max_length</span><span class="p">)</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">length</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">length</span><span class="p">))</span>
     <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">length</span>
 
     <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span></div>

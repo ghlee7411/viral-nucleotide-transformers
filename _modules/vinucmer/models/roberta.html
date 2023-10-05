@@ -373,21 +373,25 @@ document.write(`
     <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">pretrained_save_path</span><span class="p">,</span> <span class="n">model_max_length</span><span class="o">=</span><span class="n">MAX_LENGTH</span><span class="p">)</span>
     <span class="n">tokenizer</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="n">pretrained_save_path</span><span class="p">)</span>
 
-
     <span class="c1"># Load dataset</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loading dataset..&#39;</span><span class="p">)</span>
 
-    <span class="c1"># def _encoder(examples):</span>
-    <span class="c1">#     return tokenizer(examples[&#39;Sequence&#39;], padding=&#39;max_length&#39;, truncation=True)</span>
+    <span class="k">def</span> <span class="nf">sample_subsequence</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="n">sub_seqs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]:</span>
+            <span class="n">subs</span> <span class="o">=</span> <span class="n">sample_substring</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">MIN_SUB_SEQ_LENGTH</span><span class="p">,</span> <span class="n">MAX_SUB_SEQ_LENGTH</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">subs</span><span class="p">:</span>
+                <span class="n">sub_seqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subs</span><span class="p">)</span>
 
-    <span class="c1"># def sample_subsequence(examples):</span>
-    <span class="c1">#     sub_seqs = [sample_substring(s, MIN_SUB_SEQ_LENGTH, MAX_SUB_SEQ_LENGTH) for s in examples[&#39;Sequence&#39;]]</span>
-    <span class="c1">#     return tokenizer(sub_seqs, padding=&#39;max_length&#39;, truncation=True)</span>
+        <span class="k">return</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">sub_seqs</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;max_length&#39;</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="n">corpus_dir</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="n">corpus_dir</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
     
-    <span class="c1"># dataset.map(sample_subsequence, batched=True, num_proc=NUM_PROCESS)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sample_subsequence</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_proc</span><span class="o">=</span><span class="n">NUM_PROCESS</span><span class="p">)</span>
     <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">test_size</span><span class="o">=</span><span class="n">TRAIN_TEST_SPLIT</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="c1"># Setup config for Roberta</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">RobertaConfig</span><span class="p">(</span><span class="n">vocab_size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">tokenizer</span><span class="p">))</span>
