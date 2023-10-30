@@ -1,13 +1,14 @@
 # Viral Nucleotide Transformers
 ## Quickstart
-This is a guide to training a pre-trained model using the Kaggle competition [Stanford Ribonanza RNA Folding](https://www.kaggle.com/competitions/stanford-ribonanza-rna-folding) dataset.
+This is a guide to training a fine-tuned model using the Kaggle competition [Stanford Ribonanza RNA Folding](https://www.kaggle.com/competitions/stanford-ribonanza-rna-folding) dataset. 
+For pre-training the model, the [NCBI Virus Complete DNA](https://huggingface.co/datasets/LKarlo/ncbi-virus-complete-dna-v230722) dataset is used.
 
 ### Pre-requisites
 - Kaggle API in your local machine
 - Install requirements
 
 ### Downloading the dataset
-Download a version of the competition dataset that contains only a portion of the competition dataset.
+Download a version of the competition dataset that contains only a portion of the competition dataset. The dataset can be found in the [Huggingface dataset repository](https://huggingface.co/datasets/LKarlo/ncbi-virus-complete-dna-v230722).
 ```bash
 kaggle datasets download -d leekh7411/stanford-ribonanza-rna-folding-light-version
 ```
