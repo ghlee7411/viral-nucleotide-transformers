@@ -72,6 +72,11 @@ def main(file_path: str, split_size: int=10, overlap_size: int=5, random_sample_
     """
     logger = create_logger(__name__)
     logger.info('Making pre-corpus to train nucleotide tokenizers')
+    logger.info(f'File path: {file_path}')
+    logger.info(f'Split size: {split_size}')
+    logger.info(f'Overlap size: {overlap_size}')
+    logger.info(f'Random sample size: {random_sample_size}')
+    logger.info(f'Seed: {seed}')
 
     if os.path.exists(file_path):
         logger.info(f'Pre-corpus already exists in {file_path}')

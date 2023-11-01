@@ -14,13 +14,13 @@ def _pre_corpus():
 
 @_pre_corpus.command()
 @click.option('--file_path', '-f', type=str, required=True, help='Path to file')
-@click.option('--split_size', '-s', type=int, default=10, help='Size of token')
+@click.option('--token_size', '-t', type=int, default=10, help='Size of token')
 @click.option('--overlap_size', '-o', type=int, default=5, help='Size of overlap')
 @click.option('--random_sample_size', '-r', type=int, default=100000, help='Size of random sample')
 @click.option('--seed', '-s', type=int, default=42, help='Random seed')
-def pre_corpus(file_path: str, split_size: int=10, overlap_size: int=5, random_sample_size: int=100000, seed: int=42):
+def pre_corpus(file_path: str, token_size: int=10, overlap_size: int=5, random_sample_size: int=100000, seed: int=42):
     """ Preprocess viral nucleotide sequence data for tokenization."""
-    pre_corpus_main(file_path, split_size, overlap_size, random_sample_size, seed)
+    pre_corpus_main(file_path, token_size, overlap_size, random_sample_size, seed)
 
 
 @click.group()

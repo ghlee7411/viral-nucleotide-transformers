@@ -94,6 +94,8 @@ def train(
         weight_decay=0.01,
         push_to_hub=False,
         report_to="none",
+        save_strategy="steps",
+        save_steps=500,
         use_mps_device=True # Apple M1 GPU
     )
 
