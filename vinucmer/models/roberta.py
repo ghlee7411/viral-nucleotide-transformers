@@ -96,7 +96,8 @@ def train(
         report_to="none",
         save_strategy="steps",
         save_steps=500,
-        use_mps_device=True # Apple M1 GPU
+        use_mps_device=True, # Apple M1 GPU
+        overwrite_output_dir=True # Overwrite the content of the output directory
     )
 
     trainer = Trainer(
