@@ -414,7 +414,8 @@ document.write(`
         <span class="n">report_to</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
         <span class="n">save_strategy</span><span class="o">=</span><span class="s2">&quot;steps&quot;</span><span class="p">,</span>
         <span class="n">save_steps</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-        <span class="n">use_mps_device</span><span class="o">=</span><span class="kc">True</span> <span class="c1"># Apple M1 GPU</span>
+        <span class="n">use_mps_device</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># Apple M1 GPU</span>
+        <span class="n">overwrite_output_dir</span><span class="o">=</span><span class="kc">True</span> <span class="c1"># Overwrite the content of the output directory</span>
     <span class="p">)</span>
 
     <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
