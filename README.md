@@ -27,27 +27,27 @@ python -m vinucmer corpus-generator \
 --save_dir temp/kaggle/data/corpus \
 --splitter ' ' \
 --min_bp 100 \
---max_bp 1000 \
---min_samples 1000 \
---max_samples 10000 \
---num_sample_raw 10000
+--max_bp 200 \
+--min_samples 50 \
+--max_samples 100 \
+--num_sample_raw 50000
 
 ```
 
 ### Pre-corpus generation to train tokenizer
 Use the same data source as the corpus created earlier. Extract the pre-corpus for tokenizer training from the data source. The extracted pre-corpus is used for tokenizer training and is saved in a format for this purpose. Use the following command to extract the pre-corpus.
 ```bash
-python -m vinucmer pre-corpus -f temp/kaggle/data/pre-corpus.txt -t 4 -o 3 -r 30000 -s 42
+python -m vinucmer pre-corpus -f temp/kaggle/data/pre-corpus.txt -t 4 -o 3 -r 10000 -s 42
 ```
 
 ### Tokenizer training
 Train a tokenizer using the pre-corpus generated earlier. The tokenizer is trained using the Huggingface Tokenizers library. The following command is used to train the tokenizer.
 ```bash
-python -m vinucmer train-bpe-tokenizer -f temp/kaggle/data/pre-corpus.txt -v 10000 -m 2 -s temp/kaggle/data/tokenizer.json --seed 42
+python -m vinucmer train-bpe-tokenizer -f temp/kaggle/data/pre-corpus.txt -v 500 -m 2 -s temp/kaggle/data/tokenizer.json --seed 42
 ```
 
 ### Pre-training
 Pre-train the RoBERTa model using the tokenizer trained earlier and the corpus generated earlier. The following command is used to pre-train the model.
 ```bash
-python -m vinucmer pretrain-roberta -p temp/kaggle/data/tokenizer.json -c temp/kaggle/data/corpus -s temp/kaggle/data/pretrained-model --seed 42
+python -m vinucmer pretrain-roberta -p temp/kaggle/data/tokenizer.json -c temp/kaggle/data/corpus -s temp/kaggle/data/pretrained-model --seed 42 -r LKarlo/vinucmer-small
 ```

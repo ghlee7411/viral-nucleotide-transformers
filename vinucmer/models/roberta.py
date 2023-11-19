@@ -11,18 +11,29 @@ from vinucmer.dataset import get_raw_dataset
 import os
 
 
+HF_WRITE_TOKEN = os.environ.get('HF_WRITE_TOKEN', None)
+
+
 def train(
         pre_tokenizer_path: str,
         corpus_dir: str,
         pretrained_save_path: str,
+        repo_id: str = 'LKarlo/vinucmer-small',
         seed: int=42
     ):
     logger = create_logger(__name__)
     logger.info('Training viral nucleotide transformer model - RoBERTa')
+    logger.info(f'Writing token: {HF_WRITE_TOKEN}')
+    
+    # Check the token available
+    if HF_WRITE_TOKEN is None:
+        raise Exception('HF_WRITE_TOKEN not found. Please set HF_WRITE_TOKEN environment variable.')
 
+    logger.info(f'Model will be saved to {pretrained_save_path} and pushed to {repo_id}')
+    
     # Constants
     MAX_LENGTH = 512
-    TRAIN_TEST_SPLIT = 0.05
+    TRAIN_TEST_SPLIT = 0.005
     MIN_SUB_SEQ_LENGTH = 50
     MAX_SUB_SEQ_LENGTH = 2000
     MLM_PROBABILITY = 0.15
@@ -78,6 +89,9 @@ def train(
 
     # Setup config for Roberta
     config = RobertaConfig(vocab_size=len(tokenizer))
+    config.num_hidden_layers = 3
+    config.hidden_size = 256
+    config.num_attention_heads = 4
     model = RobertaForMaskedLM(config=config)
 
     # Masked language modeling
@@ -85,17 +99,23 @@ def train(
         tokenizer=tokenizer, mlm=True, mlm_probability=MLM_PROBABILITY
     )
 
-    model = AutoModelForMaskedLM.from_pretrained("distilroberta-base")
+    # model = AutoModelForMaskedLM.from_pretrained("distilroberta-base")
+    # model = AutoModelForMaskedLM.from_pretrained("t5-small")
     training_args = TrainingArguments(
         output_dir=pretrained_save_path,
-        evaluation_strategy="epoch",
+        evaluation_strategy="steps",
         learning_rate=2e-5,
         num_train_epochs=3,
         weight_decay=0.01,
-        push_to_hub=False,
         report_to="none",
         save_strategy="steps",
-        save_steps=500,
+        save_steps=1000,
+        eval_steps=1000,
+        logging_steps=10,
+        max_steps=100000,
+        load_best_model_at_end=True,
+        gradient_accumulation_steps=4,
+        per_device_train_batch_size=8,
         use_mps_device=True, # Apple M1 GPU
         overwrite_output_dir=True # Overwrite the content of the output directory
     )
@@ -105,9 +125,21 @@ def train(
         args=training_args,
         train_dataset=dataset["train"],
         eval_dataset=dataset["test"],
-        data_collator=data_collator,
+        data_collator=data_collator
     )
 
     trainer.train()
-
+    
+    commit_message = f"training roberta structure with {len(dataset['train'])} samples, {len(dataset['test'])} test samples, {len(tokenizer)} vocab size, {config.num_hidden_layers} hidden layers, {config.hidden_size} hidden size, {config.num_attention_heads} attention heads, {MLM_PROBABILITY} mlm probability, {NUM_PROCESS} num process, {MAX_LENGTH} max length, {TRAIN_TEST_SPLIT} train test split, {MIN_SUB_SEQ_LENGTH} min sub seq length, {MAX_SUB_SEQ_LENGTH} max sub seq length, {seed} seed"
+    tokenizer.push_to_hub(
+        repo_id=repo_id,
+        token=HF_WRITE_TOKEN,
+        commit_message=commit_message
+    )
+        
+    model.push_to_hub(
+        repo_id=repo_id, 
+        token=HF_WRITE_TOKEN, 
+        commit_message=commit_message
+    )
     return
